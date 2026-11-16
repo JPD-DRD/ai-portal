@@ -13,11 +13,11 @@ cd llama.cpp
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release -j$(nproc)
 
-echo "=== Step 3: Downloading Qwen 2.5 14B Instruct (GGUF) ==="
+echo "=== Step 3: Downloading Qwen3-14B (Q4_K_M GGUF) ==="
 mkdir -p models
 cd models
-if [ ! -f "qwen2.5-14b-instruct-q4_k_m.gguf" ]; then
-    curl -L -O https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF/resolve/main/qwen2.5-14b-instruct-q4_k_m.gguf
+if [ ! -f "Qwen3-14B-Q4_K_M.gguf" ]; then
+    curl -L -O https://huggingface.co/unsloth/Qwen3-14B-GGUF/resolve/main/Qwen3-14B-Q4_K_M.gguf
 fi
 cd ../..
 

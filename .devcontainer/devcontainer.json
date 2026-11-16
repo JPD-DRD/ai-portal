@@ -1,0 +1,18 @@
+{
+  "name": "Qwen 14B AI Engine",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "16gb",
+    "storage": "32gb"
+  },
+  "portsAttributes": {
+    "8080": {
+      "label": "Qwen llama-server",
+      "onAutoForward": "notify",
+      "visibility": "public"
+    }
+  },
+  "forwardPorts": [8080],
+  "postCreateCommand": "bash .devcontainer/setup.sh"
+}

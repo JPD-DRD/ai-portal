@@ -1,0 +1,9 @@
+cat << 'EOF' > .gitignore
+llama.cpp/
+models/
+*.gguf
+EOF
+
+git add .gitignore
+git commit -m "Add .gitignore to exclude large binaries and models"
+git push origin main

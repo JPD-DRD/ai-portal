@@ -5,15 +5,17 @@ echo "=== Starting Qwen 14B Llama Server ==="
 ./llama.cpp/build/bin/llama-server -m ./llama.cpp/models/Qwen3-14B-Q4_K_M.gguf --port 8080 --host 0.0.0.0 &
 SERVER_PID=$!
 
-echo "=== Automatically setting port 8080 visibility to public ==="
-sleep 4
+echo "=== Waiting for port 8080 to become active ==="
+while ! nc -z localhost 8080; do
+  sleep 1
+done
 
-# Automatically change port 8080 visibility using GitHub CLI
+echo "=== Setting port 8080 visibility to public ==="
 if [ -n "$CODESPACE_NAME" ]; then
-    gh codespace ports visibility 8080:public -c "$CODESPACE_NAME" 2>/dev/null && echo "Port 8080 is now Public!" || echo "CLI visibility toggle skipped."
+    gh codespace ports visibility 8080:public -c "$CODESPACE_NAME" && echo "Port 8080 is now Public!" || echo "CLI visibility toggle failed."
 else
-    echo "Not running inside a Codespace. Skipping CLI command."
+    echo "Not running inside a Codespace."
 fi
 
-# Keep the script running with the background server process
+# Keep script running with the server process
 wait $SERVER_PID
